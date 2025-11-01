@@ -1,0 +1,17 @@
+build/
+data/
+ckpts/
+test/
+val/
+work_dirs/
+
+__pycache__
+*.pyc
+*.pth
+*.log
+*.mim
+*.egg-info
+*.so
+*.png
+*.pth
+*.log
