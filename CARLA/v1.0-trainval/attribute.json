@@ -1,0 +1,22 @@
+[
+{
+"token": "cb5118da1ab342aa947717dc53544259",
+"name": "vehicle.moving",
+"description": "Vehicle is moving."
+},
+{
+"token": "c3246a1e22a14fcb878aa61e69ae3329",
+"name": "vehicle.stopped",
+"description": "Vehicle, with a driver/rider in/on it, is currently stationary but has an intent to move."
+},
+{
+"token": "a14936d865eb4216b396adae8cb3939c",
+"name": "cycle.with_rider",
+"description": "There is a rider on the bicycle or motorcycle."
+},
+{
+"token": "ab83627ff28b465b85c427162dec722f",
+"name": "pedestrian.moving",
+"description": "The human is moving."
+}
+]

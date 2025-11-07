@@ -1,0 +1,116 @@
+parameters:
+  center_to_wheelbase: 1.317
+  delta_T: 0.01
+  time_res: 0.5
+  nbr_samples: 40
+  num_scenes: 1000
+  sensing_range: 100.0
+
+  num_cars: 40
+  num_trucks: 10
+  num_buses: 10
+  num_pedestrians: 25
+  num_motorcycles: 20
+  num_bicycles: 20
+
+  carla_path: "/media/zhijie/Disk1/CARLA_0.9.16/CarlaUE4.sh"
+  version: "v1.0-trainval"
+  source_dir: "/media/zhijie/Disk2/data"
+  save_dir: "/media/zhijie/Disk3/nuCarla"
+
+sensors:
+  - channel: "CAM_FRONT"
+    transform:
+      location:
+        x: 1.90079118954
+        y: 0.0159456324149
+        z: 1.51095763913
+      rotation:
+        w: 0.4998015430569128
+        x: -0.5030316162024876
+        y: 0.4997798114386805
+        z: -0.49737083824542755
+    options:
+      image_size_x: 1600
+      image_size_y: 900
+      fov: 65.0
+
+  - channel: "CAM_BACK"
+    transform:
+      location:
+        x: 0.0283260309358
+        y: 0.00345136761476
+        z: 1.57910346144
+      rotation:
+        w: 0.5037872666382278
+        x: -0.49740249788611096
+        y: -0.4941850223835201
+        z: 0.5045496097725578
+    options:
+      image_size_x: 1600
+      image_size_y: 900
+      fov: 65.0
+
+  - channel: "CAM_BACK_LEFT"
+    transform:
+      location:
+        x: 1.03569100218
+        y: 0.484795032713
+        z: 1.59097014818
+      rotation:
+        w: 0.6924185592174665
+        x: -0.7031619420114925
+        y: -0.11648342771943819
+        z: 0.11203317912370753
+    options:
+      image_size_x: 1600
+      image_size_y: 900
+      fov: 65.0
+
+  - channel: "CAM_FRONT_LEFT"
+    transform:
+      location:
+        x: 1.52387798135
+        y: 0.494631336551
+        z: 1.50932822144
+      rotation:
+        w: 0.6757265034669446
+        x: -0.6736266522251881
+        y: 0.21214015046209478
+        z: -0.21122827103904068
+    options:
+      image_size_x: 1600
+      image_size_y: 900
+      fov: 65.0
+
+  - channel: "CAM_FRONT_RIGHT"
+    transform:
+      location:
+        x: 1.5508477543
+        y: -0.493404796419
+        z: 1.49574800619
+      rotation:
+        w: 0.2060347966337182
+        x: -0.2026940577919598
+        y: 0.6824507824531167
+        z: -0.6713610884174485
+    options:
+      image_size_x: 1600
+      image_size_y: 900
+      fov: 65.0
+
+  - channel: "CAM_BACK_RIGHT"
+    transform:
+      location:
+        x: 1.0148780988
+        y: -0.480568219723
+        z: 1.56239545128
+      rotation:
+        w: 0.12280980120078765
+        x: -0.132400842670559
+        y: -0.7004305821388234
+        z: 0.690496031265798
+    options:
+      image_size_x: 1600
+      image_size_y: 900
+      fov: 65.0

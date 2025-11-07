@@ -1,6 +1,5 @@
 # Copyright (c) OpenMMLab. All rights reserved.
 import pickle
-
 import numpy as np
 from nuscenes import NuScenes
 from nuscenes.utils.data_classes import Box

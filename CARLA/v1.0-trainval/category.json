@@ -1,0 +1,37 @@
+[
+{
+"token": "1fa93b757fc74fb197cdd60001ad8abf",
+"name": "human.pedestrian.adult",
+"description": "Adult subcategory."
+},
+{
+"token": "b1c6de4c57f14a5383d9f963fbdcb5cb",
+"name": "human.pedestrian.child",
+"description": "Child subcategory."
+},
+{
+"token": "fd69059b62a3469fbaef25340c0eab7f",
+"name": "vehicle.car",
+"description": "Vehicle designed primarily for personal use, e.g. sedans, hatch-backs, wagons, vans, mini-vans, SUVs and jeeps. If the vehicle is designed to carry more than 10 people use vehicle.bus. If it is primarily designed to haul cargo use vehicle.truck. "
+},
+{
+"token": "dfd26f200ade4d24b540184e16050022",
+"name": "vehicle.motorcycle",
+"description": "Gasoline or electric powered 2-wheeled vehicle designed to move rapidly (at the speed of standard cars) on the road surface. This category includes all motorcycles, vespas and scooters."
+},
+{
+"token": "fc95c87b806f48f8a1faea2dcc2222a4",
+"name": "vehicle.bicycle",
+"description": "Human or electric powered 2-wheeled vehicle designed to travel at lower speeds either on road surface, sidewalks or bike paths."
+},
+{
+"token": "fedb11688db84088883945752e480c2c",
+"name": "vehicle.bus.rigid",
+"description": "Rigid bus subcategory."
+},
+{
+"token": "6021b5187b924d64be64a702e5570edf",
+"name": "vehicle.truck",
+"description": "Vehicles primarily designed to haul cargo including pick-ups, lorrys, trucks and semi-tractors. Trailers hauled after a semi-tractor should be labeled as vehicle.trailer"
+}
+]

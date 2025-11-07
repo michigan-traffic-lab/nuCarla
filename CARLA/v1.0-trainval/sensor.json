@@ -1,0 +1,37 @@
+[
+{
+"token": "dc8b396651c05aedbb9cdaae573bb567",
+"channel": "LIDAR_TOP",
+"modality": "lidar"
+},
+{
+"token": "725903f5b62f56118f4094b46a4470d8",
+"channel": "CAM_FRONT",
+"modality": "camera"
+},
+{
+"token": "ce89d4f3050b5892b33b3d328c5e82a3",
+"channel": "CAM_BACK",
+"modality": "camera"
+},
+{
+"token": "a89643a5de885c6486df2232dc954da2",
+"channel": "CAM_BACK_LEFT",
+"modality": "camera"
+},
+{
+"token": "ec4b5d41840a509984f7ec36419d4c09",
+"channel": "CAM_FRONT_LEFT",
+"modality": "camera"
+},
+{
+"token": "2f7ad058f1ac5557bf321c7543758f43",
+"channel": "CAM_FRONT_RIGHT",
+"modality": "camera"
+},
+{
+"token": "ca7dba2ec9f95951bbe67246f7f2c3f7",
+"channel": "CAM_BACK_RIGHT",
+"modality": "camera"
+}
+]

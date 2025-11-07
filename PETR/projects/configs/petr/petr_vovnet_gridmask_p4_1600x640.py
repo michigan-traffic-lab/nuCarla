@@ -1,6 +1,6 @@
 _base_ = [
-    '../../../mmdetection3d/configs/_base_/datasets/nus-3d.py',
-    '../../../mmdetection3d/configs/_base_/default_runtime.py'
+    '../../../projects/configs/_base_/datasets/nus-3d.py',
+    '../../../projects/configs/_base_/default_runtime.py'
 ]
 backbone_norm_cfg = dict(type='LN', requires_grad=True)
 plugin=True
@@ -106,7 +106,7 @@ model = dict(
             pc_range=point_cloud_range))))
 
 dataset_type = 'CustomNuScenesDataset'
-data_root = '/data/nuscenes/'
+data_root = 'data/nuscenes/'
 
 file_client_args = dict(backend='disk')
 
@@ -236,6 +236,7 @@ find_unused_parameters = False
 
 runner = dict(type='EpochBasedRunner', max_epochs=total_epochs)
 load_from='ckpts/fcos3d_vovnet_imgbackbone-remapped.pth'
+
 resume_from=None
 
 # mAP: 0.4035
