@@ -82,5 +82,4 @@ If you use nuCarla in your research, please consider citing:
       title={nuCarla: A nuScenes-Style Bird’s-Eye View Perception Dataset for CARLA Simulation}, 
       author={Qiao, Zhijie and Cao, Zhong and Liu, Henry X.},
       year={2025},
-      url={https://arxiv.org/abs/2505.00284}, 
 }
