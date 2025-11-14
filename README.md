@@ -3,8 +3,7 @@
 
 ## Introduction
 
-nuCarla is a large-scale, nuScenes-compatible, camera-based perception dataset developed in the CARLA simulator, featuring 9 distinct maps, 14 weather conditions, and 6 object classes. It is designed to facilitate training of effective perception representations for end-to-end autonomous driving development. The dataset contains 1,000 scenarios in total, with 700 for training, 150 for validation, and 150 for testing, matching the nuScenes split. To thoroughly validate nuCarla, we train and evaluate four state-of-the-art Bird's Eye View (BEV) perception models: [BEVFormer](https://github.com/fundamentalvision/BEVFormer), [PETR](https://github.com/megvii-research/PETR), [BEVDet](https://github.com/HuangJunJie2017/BEVDet), [FastBEV](https://github.com/ymlab/advanced-fastbev), and demonstrate that all models achieve competitive performance using the official nuScenes detection metrics.
-
+nuCarla ([paper.pdf](https://github.com/user-attachments/files/23537819/nuCarla_Open.pdf)) is a large-scale, nuScenes-compatible, camera-based perception dataset developed in the CARLA simulator, featuring 9 distinct maps, 14 weather conditions, and 6 object classes. It is designed to facilitate training of effective perception representations for end-to-end autonomous driving development. The dataset contains 1,000 scenarios in total, with 700 for training, 150 for validation, and 150 for testing, matching the nuScenes split. To thoroughly validate nuCarla, we train and evaluate four state-of-the-art Bird's Eye View (BEV) perception models: [BEVFormer](https://github.com/fundamentalvision/BEVFormer), [PETR](https://github.com/megvii-research/PETR), [BEVDet](https://github.com/HuangJunJie2017/BEVDet), [FastBEV](https://github.com/ymlab/advanced-fastbev), and demonstrate that all models achieve competitive performance using the official nuScenes detection metrics.
 
 https://github.com/user-attachments/assets/4e1b57fd-4a80-4032-9c23-efc975fa57e1
 
