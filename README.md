@@ -1,86 +1,91 @@
-# nuCarla: A nuScenes-Style Bird’s-Eye View Perception Dataset for CARLA Simulation
+# CARLA Data Collection Pipeline
 
-[![arXiv](https://img.shields.io/badge/arXiv-2511.13744-red.svg)](https://arxiv.org/abs/2511.13744)
-[![Hugging Face](https://img.shields.io/badge/🤗-Hugging_Face-yellow.svg)](https://huggingface.co/datasets/zhijieq/nuCarla)
-[![nuScenes](https://img.shields.io/badge/dataset-nuScenes-green.svg)](https://www.nuscenes.org/nuscenes)
+A framework for automated traffic simulation and multi-camera data collection in the CARLA simulator. The pipeline spawns traffic actors, attaches camera sensors to an ego vehicle, and extracts ground truth annotations for all visible actors. While designed as a minimal setup for single-scenario data collection, the modular architecture allows users to extend it for continuous collection and annotation workflows.
 
-## Introduction
+---
 
-nuCarla is a large-scale, nuScenes-compatible, camera-based perception dataset developed in the CARLA simulator, featuring 9 distinct maps, 14 weather conditions, and 6 object classes. It is designed to facilitate training of effective perception representations for end-to-end autonomous driving development. The dataset contains 1,000 scenarios in total, with 700 for training, 150 for validation, and 150 for testing, matching the nuScenes split. To thoroughly validate nuCarla, we train and evaluate four state-of-the-art Bird's Eye View (BEV) perception models: [BEVFormer](https://github.com/fundamentalvision/BEVFormer), [PETR](https://github.com/megvii-research/PETR), [BEVDet](https://github.com/HuangJunJie2017/BEVDet), [FastBEV](https://github.com/ymlab/advanced-fastbev), and demonstrate that all models achieve competitive performance using the official nuScenes detection metrics.
+## Repository Structure
 
-## Key Features
+| File | Description |
+|------|-------------|
+| `config.yaml` | Central configuration file for simulation parameters, traffic actor counts, output directories, and camera sensor specifications. |
+| `blueprints.py` | Defines CARLA blueprint pools for different actor categories (pedestrians, cars, trucks, buses, motorcycles, bicycles). |
+| `traffic.py` | Spawns traffic actors and records their metadata for downstream processing. |
+| `sensors.py` | Attaches a 6-camera sensor suite to the ego vehicle. Each camera pair consists of an RGB camera for raw images and an instance segmentation camera for ground truth extraction. |
+| `annotation.py` | Detects visible traffic actors in each frame using instance segmentation images, retrieves corresponding actor metadata, and generates final annotations. |
+| `visualize.py` | Renders 3D bounding boxes on RGB images for visual verification. Transforms actor coordinates from world space to camera space and projects them onto 2D images with category-based color coding. |
 
-🚗 The first large-scale **CARLA-based perception dataset** with full compatibility to the nuScenes format.
+---
 
-⚙️ **MMDetection3D-1.0 fully upgraded** for usage with the latest PyTorch (2.7+) and CUDA (12.8+).
+## Limitations
 
-📦 Open-source **dataset and pretrained model weights** provided.
+CARLA's instance segmentation camera returns Unreal Engine object IDs rather than CARLA actor IDs, with no direct API mapping between them. As a workaround, we position a dummy instance segmentation camera high above the ground (see `traffic.py`) and temporarily teleport each newly spawned actor to this isolated location to capture its Unreal ID, which is then mapped to the corresponding CARLA actor ID. If you know a better approach, please open an issue to share with the community!
 
+---
 
-## Tested Environment
+## Installation
 
-The following environment settings are applied across all models in this repository:
+### Tested Environment
 
-- **CUDA**: 12.8
-- **Nvidia Driver**: 570
+The following environment has been tested; others may work as well.
+
 - **Python**: 3.10
 - **OS**: Ubuntu 22.04
 
+### CARLA Download
 
-## Data Preparation
+Download our customized [CARLA 0.9.16](https://huggingface.co/datasets/zhijieq/nuCarla/blob/main/CARLA_0.9.16.zip) package from Hugging Face. The only difference from the official release is the removal of static vehicle meshes. For more information, see Section 3.6 of our [paper](https://arxiv.org/pdf/2511.13744).
 
-The dataset is publicly available at [Hugging Face](https://huggingface.co/datasets/zhijieq/nuCarla). Download it using `download.sh` and organize it in the following structure.
+### Dependencies
 
-```
-nuCarla
-├─ maps/
-├─ samples/
-├─ v1.0-mini/
-├─ v1.0-test/
-├─ v1.0-trainval/
+```bash
+pip install -r requirements.txt
 ```
 
-**Note**: This is a camera-based perception dataset. The LiDAR files in the sample folder are dummy placeholders provided solely for compatibility with the MMDetection3D framework conventions.
+## Usage
 
+### Data Collection
 
-## Training and Evaluation
+Run the following steps in separate terminal windows. There is no automatic exit trigger; press Ctrl+C to stop recording once enough frames have been collected.
 
-For complete installation, training, and evaluation workflows, please refer to the individual folder corresponding to each model: [BEVFormer](BEVFormer/), [PETR](PETR/), [BEVDet](BEVDet/), [FastBEV](FastBEV/).
+**1. Launch CARLA Server**
 
+```bash
+./path/to/CarlaUE4.sh
+```
 
-## Model Zoo
+**2. Spawn Traffic**
 
-**IMPORTANT**: The following results are evaluated on the nuCarla *validation* set. All metrics are post-computed based on the six available classes (car, truck, bus, pedestrian, motorcycle, bicycle) and are not the direct output from the nuScenes console.
+Wait for all traffic actors to spawn and begin moving, then proceeed to next step.
 
-Due to time and resource considerations, we only conducted thorough evaluations for the selected model variants within each family. For users interested in other variants, please refer to the respective original code repositories.
+```bash
+python traffic.py
+```
 
+**3. Attach Sensors**
 
-| Method | Schedule | VRAM | GPU Hours | mAP | NDS | Config | Download
-| :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
-| BEVFormer (Base) | 24ep | 30500M | 300 | 0.813 | 0.778 | [config](BEVFormer/projects/configs/bevformer/bevformer-base.py) | [model](https://github.com/michigan-traffic-lab/nuCarla/releases/download/v1.0/bevformer-base.pth)/[log](https://github.com/michigan-traffic-lab/nuCarla/releases/download/v1.0/bevformer-base.log) |
-| PETR (VovNet-Grid<br>Mask-P4-1600x640) | 24ep | 9500M | 150 | 0.745 | 0.710 | [config](PETR/projects/configs/petr/petr-vovnet-gridmask-p4-1600x640.py) | [model](https://github.com/michigan-traffic-lab/nuCarla/releases/download/v1.0/petr-vovnet-gridmask-p4-1600x640.pth)/[log](https://github.com/michigan-traffic-lab/nuCarla/releases/download/v1.0/petr-vovnet-gridmask-p4-1600x640.log) |
-| BEVDet (R50-4DLong<br>Term-Stereo-CBGS) | 24ep | 8500M | 300 | 0.811 | 0.753 | [config](BEVDet/configs/bevdet/bevdet-r50-4dlongterm-stereo-cbgs.py) | [model](https://github.com/michigan-traffic-lab/nuCarla/releases/download/v1.0/bevdet-r50-4dlongterm-stereo-cbgs.pth)/[log](https://github.com/michigan-traffic-lab/nuCarla/releases/download/v1.0/bevdet-r50-4dlongterm-stereo-cbgs.log) |
-| FastBEV (R50-CBGS-4D) | 24ep | 14000M | 50 | 0.777 | 0.728 |  [config](FastBEV/configs/fastbev/fastbev-r50-cbgs-4d.py) | [model](https://github.com/michigan-traffic-lab/nuCarla/releases/download/v1.0/fastbev-r50-cbgs-4d.pth)/[log](https://github.com/michigan-traffic-lab/nuCarla/releases/download/v1.0/fastbev-r50-cbgs-4d.log) |
+Attaches camera sensors to the ego vehicle and starts recording.
 
+```bash
+python sensors.py
+```
 
-## Acknowledgement
+---
 
-Many thanks to these excellent open source projects:
+### Data Processing
 
-- [MMDetection3D](https://github.com/open-mmlab/mmdetection3d)
-- [BEVFormer](https://github.com/fundamentalvision/BEVFormer)
-- [PETR](https://github.com/megvii-research/PETR)
-- [BEVDet](https://github.com/HuangJunJie2017/BEVDet)
-- [FastBEV](https://github.com/ymlab/advanced-fastbev)
+**1. Generate Annotations**
 
-## Citation
+Extracts visible actor information and compiles ground truth labels. This step can take some time due to pixel-level processing.
 
-If you use nuCarla in your research, please consider citing:
+```bash
+python annotation.py
+```
 
-```bibtex
-@article{nucarla,
-      title={nuCarla: A nuScenes-Style Bird’s-Eye View Perception Dataset for CARLA Simulation}, 
-      author={Qiao, Zhijie and Cao, Zhong and Liu, Henry X.},
-      year={2025},
-      url={https://arxiv.org/abs/2511.13744}, 
-}
+**2. Visualize Results (Optional)**
+
+After annotation is complete, run this script to render 3D bounding boxes overlaid on saved frames for visual verification.
+
+```bash
+python visualize.py
+```
